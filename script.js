@@ -10,7 +10,7 @@ const defaultData = {
     { name: "Bodyweight Box Squats", weight: "Bodyweight", reps: "15-20", time: 60, desc: "Stand in front of a chair/couch. Sit back (hips first) until butt barely taps the seat. Stand back up immediately. Keep chest up. Do not actually sit and relax." },
     { name: "Static Lunges", weight: "Bodyweight (or 10s)", reps: "10/leg", time: 30, desc: "Split stance (one foot forward, one back). Drop back knee straight down toward floor. Front knee stays over ankle. Push through front heel to stand. Switch legs after 10." },
     { name: "Glute Bridges", weight: "Bodyweight", reps: "15", time: 45, desc: "Lie on back, knees bent, feet flat. Drive hips to ceiling. Squeeze glutes hard at the top for 1 second. Lower slowly. Do not arch lower back; drive from the hips." },
-    { name: "Band Pull-Throughs", weight: "Med/Heavy Band", reps: "15-20", time: 50, desc: "Anchor band low. Straddle band facing away from anchor. Hold band between legs. Walk forward to get tension. Hinge hips back (bow down), knees soft. Snap hips forward and squeeze glutes to stand." },
+    { name: "Lying Dumbbell Hamstring Curls", weight: "10-15 lbs (1 DB)", reps: "15", time: 50, desc: "Lie on your stomach on a mat. Place a light dumbbell between your feet, gripping the handle with your arches. Curl your heels toward your butt, squeezing your hamstrings hard at the top. Lower slowly to the floor. If the dumbbell feels unstable, do 'Slider Curls' on your back: socks or plates under your feet, hips up, slide feet in/out." },
     { name: "Dead Bug", weight: "Bodyweight", reps: "20", time: 60, desc: "Lie on back, arms up, legs in tabletop (90 degrees). Lower opposite arm and opposite leg toward floor slowly. Keep lower back GLUED to the floor. Return to center. Switch sides." }
   ],
   "Thursday": [
@@ -21,7 +21,7 @@ const defaultData = {
     { name: "Standing DB Curls", weight: "20-25 lbs", reps: "12", time: 40, desc: "Palms facing forward. Elbows glued to ribs. Curl up, squeeze bicep, lower slowly. No swinging the body!" },
     { name: "Reverse Flys", weight: "5-10 lbs", reps: "15", time: 45, desc: "Bend over at hips, flat back (chest parallel to floor). Slight bend in elbows. Open arms wide like wings. Squeeze shoulder blades together." },
     { name: "Hammer Curls", weight: "20-25 lbs", reps: "12", time: 40, desc: "Same as regular curls, but palms face each other (neutral grip). Hits the forearm and thickens the arm." },
-    { name: "Band Face Pulls", weight: "Light/Med Band", reps: "20", time: 50, desc: "Anchor band high. Pull handles towards your forehead. Pull hands apart and elbows back. Squeeze upper back. Great for posture." }
+    { name: "Band Pull-Aparts", weight: "Light/Med Band", reps: "20", time: 50, desc: "Stand tall, hold band at chest height with both hands shoulder-width apart. Keep elbows straight (not locked). Pull hands apart until the band touches your chest, squeezing your shoulder blades together. Control the movement on the way back in." }
   ],
   "Saturday": [
     { name: "Dumbbell Thrusters", weight: "15-20 lbs", reps: "10", time: 45, desc: "DBs at shoulders. Squat down. Explode up and press DBs overhead in one motion. Use your legs to launch the weight." },
@@ -74,9 +74,15 @@ function fillOptions() {
   $sel.innerHTML = days.map(d=>`<option>${d}</option>`).join('');
 }
 
+function showBackPainToggle(day) {
+  document.getElementById("backpain-wrap").style.display = (day === "Wednesday") ? "" : "none";
+  if (day !== "Wednesday") $backpain.checked = false;
+}
+
 function fillExercises() {
   let day = $sel.value;
-  let bp = $backpain.checked && backPainSubs[day];
+  showBackPainToggle(day);
+  let bp = $backpain.checked && day === "Wednesday";
   const exList = bp ? backPainSubs[day] : defaultData[day];
   $exs.innerHTML = "";
   $roundInfo.textContent = `Round ${round} of ${rounds}`;

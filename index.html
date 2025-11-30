@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Workout Tracker</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #121212; color: #eee; }
+    .container { max-width: 480px; margin: 20px auto; padding: 12px; background: #222; border-radius: 10px; }
+    h2 { margin: 8px 0; }
+    .day-select { margin-bottom: 8px; }
+    .exercise { padding: 7px 0; border-bottom: 1px solid #444; display: flex; align-items: center; }
+    .checkbox { margin-right: 10px; }
+    .timer-btn { margin-left: auto; background: #444; color: #fff; border: none; border-radius: 6px; padding: 3px 8px; }
+    .active-timer { background: #3680ff; color: #fff; }
+    .desc { font-size: 0.88em; color: #aaa; }
+    .round { margin: 11px 0 6px 0; }
+    #next-round, #reset-btn { margin: 9px 7px 0 0; background: #0a0; color: #fff; border: none; border-radius: 5px; padding: 5px 11px; }
+    #backpain-toggle { margin: 0 0 12px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Workout Tracker</h2>
+    <label><input type="checkbox" id="backpain-toggle"> Back Pain Mode</label>
+    <div class="day-select">
+      <select id="day-select"></select>
+    </div>
+    <div class="round" id="round-info"></div>
+    <div id="exercises"></div>
+    <button id="next-round">Next Round</button>
+    <button id="reset-btn">Reset</button>
+  </div>
+  <audio id="timerAudio">
+    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+  </audio>
+  <script src="script.js"></script>
+</body>
+</html>

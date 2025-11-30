@@ -202,11 +202,16 @@ function fillExercises() {
     document.getElementById(`ex${i}`).addEventListener("change", function() {
       if (!appData[day]) appData[day] = {};
       if (!appData[day][round]) appData[day][round] = {};
+
+      // Get current weight from display or saved data
+      const weightDisplay = document.getElementById(`weight-${i}`);
+      const displayedWeight = weightDisplay ? parseInt(weightDisplay.textContent) : currentWeight;
+
       appData[day][round][i] = {
         checked: this.checked,
-        weight: currentWeight,
+        weight: displayedWeight,
         reps: parseReps(ex.reps),
-        amrapReps: ex.isAMRAP ? (document.getElementById(`amrap-${i}`).value || "") : undefined
+        amrapReps: ex.isAMRAP ? (document.getElementById(`amrap-${i}`)?.value || "") : undefined
       };
       save();
       updateProgress();
@@ -218,14 +223,25 @@ function fillExercises() {
         btn.onclick = function() {
           const action = this.dataset.action;
           const idx = this.dataset.index;
-          let newWeight = getNextWeight(currentWeight, action);
 
-          document.getElementById(`weight-${idx}`).textContent = newWeight + " lbs";
+          // READ current weight from the display element
+          const displayEl = document.getElementById(`weight-${idx}`);
+          const displayedWeight = parseInt(displayEl.textContent);
 
+          // Calculate next weight based on CURRENT displayed weight
+          let newWeight = getNextWeight(displayedWeight, action);
+
+          // Update display
+          displayEl.textContent = newWeight + " lbs";
+
+          // Save to appData
           if (!appData[day]) appData[day] = {};
           if (!appData[day][round]) appData[day][round] = {};
-          if (!appData[day][round][idx]) appData[day][round][idx] = { checked: false, weight: newWeight, reps: parseReps(ex.reps) };
-          else appData[day][round][idx].weight = newWeight;
+          if (!appData[day][round][idx]) {
+            appData[day][round][idx] = { checked: false, weight: newWeight, reps: parseReps(ex.reps) };
+          } else {
+            appData[day][round][idx].weight = newWeight;
+          }
 
           save();
           updateVolume();

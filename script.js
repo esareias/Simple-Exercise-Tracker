@@ -1,16 +1,16 @@
 const defaultData = {
   "Tuesday": [
     { name: "Dumbbell Floor Press", weight: 35, reps: "12-15", time: 45, desc: "Lie on floor, knees bent, feet flat. Hold DBs at chest. Press up until arms are straight. Lower slowly until elbows tap the floor. Don't let elbows flare out wide; keep them tucked 45-degrees." },
-    { name: "Standing DB Overhead Press", weight: 22.5, reps: "10-12", time: 40, desc: "Stand tall, core tight. DBs at shoulder height, palms facing forward or neutral (facing ears). Press straight up. Don't arch your lower back. If back hurts, sit down." },
-    { name: "Lateral Raises", weight: 12.5, reps: "15", time: 45, desc: "Stand tall. DBs at sides. Lift arms out to the side until they reach shoulder height. Pour the pitcher at the top (pinky slightly up). Control the drop. Do not swing." },
+    { name: "Standing DB Overhead Press", weight: 20, reps: "10-12", time: 40, desc: "Stand tall, core tight. DBs at shoulder height, palms facing forward or neutral (facing ears). Press straight up. Don't arch your lower back. If back hurts, sit down." },
+    { name: "Lateral Raises", weight: 10, reps: "15", time: 45, desc: "Stand tall. DBs at sides. Lift arms out to the side until they reach shoulder height. Pour the pitcher at the top (pinky slightly up). Control the drop. Do not swing." },
     { name: "Overhead Tricep Extension", weight: 30, reps: "12-15", time: 45, desc: "Hold one heavy DB with both hands straight over your head. Bend elbows to lower weight behind your head. Keep elbows pointing forward, not flaring out. Extend back up." },
-    { name: "Pushups", weight: 0, reps: "AMRAP*", time: 60, desc: "Hands shoulder-width. Body in straight line. Lower chest to floor, press back up. AMRAP = As Many Reps As Possible. If form breaks, drop to knees and keep going." }
+    { name: "Pushups", weight: 0, reps: "AMRAP", time: 60, isAMRAP: true, desc: "Hands shoulder-width. Body in straight line. Lower chest to floor, press back up. AMRAP = As Many Reps As Possible. If form breaks, drop to knees and keep going." }
   ],
   "Wednesday": [
     { name: "Bodyweight Box Squats", weight: 0, reps: "15-20", time: 60, desc: "Stand in front of a chair/couch. Sit back (hips first) until butt barely taps the seat. Stand back up immediately. Keep chest up. Do not actually sit and relax." },
     { name: "Static Lunges", weight: 10, reps: "10/leg", time: 30, desc: "Split stance (one foot forward, one back). Drop back knee straight down toward floor. Front knee stays over ankle. Push through front heel to stand. Switch legs after 10." },
     { name: "Glute Bridges", weight: 0, reps: "15", time: 45, desc: "Lie on back, knees bent, feet flat. Drive hips to ceiling. Squeeze glutes hard at the top for 1 second. Lower slowly. Do not arch lower back; drive from the hips." },
-    { name: "Lying Dumbbell Hamstring Curls", weight: 12.5, reps: "15", time: 50, desc: "Lie on your stomach on a mat. Place a light dumbbell between your feet, gripping the handle with your arches. Curl your heels toward your butt, squeezing your hamstrings hard at the top. Lower slowly to the floor. If the dumbbell feels unstable, do 'Slider Curls' on your back: socks or plates under your feet, hips up, slide feet in/out." },
+    { name: "Lying Dumbbell Hamstring Curls", weight: 10, reps: "15", time: 50, desc: "Lie on your stomach on a mat. Place a light dumbbell between your feet, gripping the handle with your arches. Curl your heels toward your butt, squeezing your hamstrings hard at the top. Lower slowly to the floor. If the dumbbell feels unstable, do 'Slider Curls' on your back: socks or plates under your feet, hips up, slide feet in/out." },
     { name: "Dead Bug", weight: 0, reps: "20", time: 60, desc: "Lie on back, arms up, legs in tabletop (90 degrees). Lower opposite arm and opposite leg toward floor slowly. Keep lower back GLUED to the floor. Return to center. Switch sides." }
   ],
   "Thursday": [
@@ -18,16 +18,16 @@ const defaultData = {
   ],
   "Friday": [
     { name: "Dumbbell Rows", weight: 35, reps: "12/arm", time: 40, desc: "Hand on chair/bench for support. Flat back. Pull DB to your hip pocket (not your armpit). Squeeze the lat muscle. Lower all the way down for a stretch." },
-    { name: "Standing DB Curls", weight: 22.5, reps: "12", time: 40, desc: "Palms facing forward. Elbows glued to ribs. Curl up, squeeze bicep, lower slowly. No swinging the body!" },
-    { name: "Reverse Flys", weight: 7.5, reps: "15", time: 45, desc: "Bend over at hips, flat back (chest parallel to floor). Slight bend in elbows. Open arms wide like wings. Squeeze shoulder blades together." },
-    { name: "Hammer Curls", weight: 22.5, reps: "12", time: 40, desc: "Same as regular curls, but palms face each other (neutral grip). Hits the forearm and thickens the arm." },
+    { name: "Standing DB Curls", weight: 20, reps: "12", time: 40, desc: "Palms facing forward. Elbows glued to ribs. Curl up, squeeze bicep, lower slowly. No swinging the body!" },
+    { name: "Reverse Flys", weight: 10, reps: "15", time: 45, desc: "Bend over at hips, flat back (chest parallel to floor). Slight bend in elbows. Open arms wide like wings. Squeeze shoulder blades together." },
+    { name: "Hammer Curls", weight: 20, reps: "12", time: 40, desc: "Same as regular curls, but palms face each other (neutral grip). Hits the forearm and thickens the arm." },
     { name: "Band Pull-Aparts", weight: 0, reps: "20", time: 50, desc: "Stand tall, hold band at chest height with both hands shoulder-width apart. Keep elbows straight (not locked). Pull hands apart until the band touches your chest, squeezing your shoulder blades together. Control the movement on the way back in." }
   ],
   "Saturday": [
-    { name: "Dumbbell Thrusters", weight: 17.5, reps: "10", time: 45, desc: "DBs at shoulders. Squat down. Explode up and press DBs overhead in one motion. Use your legs to launch the weight." },
-    { name: "Renegade Rows", weight: 17.5, reps: "10", time: 50, desc: "Pushup position holding DBs. Feet wide for balance. Row one DB to hip, place it down. Row the other. Keep hips square to floor (don't twist)." },
+    { name: "Dumbbell Thrusters", weight: 15, reps: "10", time: 45, desc: "DBs at shoulders. Squat down. Explode up and press DBs overhead in one motion. Use your legs to launch the weight." },
+    { name: "Renegade Rows", weight: 15, reps: "10", time: 50, desc: "Pushup position holding DBs. Feet wide for balance. Row one DB to hip, place it down. Row the other. Keep hips square to floor (don't twist)." },
     { name: "Step-Ups", weight: 0, reps: "10/leg", time: 45, desc: "Use a sturdy chair or stair. Step up with one foot, bring other foot to meet it. Step down. Alternate or do all 10 on one side then switch." },
-    { name: "Russian Twists", weight: 12.5, reps: "20", time: 45, desc: "Sit on floor, lean back 45 degrees. Hold one DB with both hands. Twist torso touch weight to floor on right, then left. Feet off ground makes it harder." },
+    { name: "Russian Twists", weight: 10, reps: "20", time: 45, desc: "Sit on floor, lean back 45 degrees. Hold one DB with both hands. Twist torso touch weight to floor on right, then left. Feet off ground makes it harder." },
     { name: "Bicycle Crunches", weight: 0, reps: "30 sec", time: 30, desc: "Hands behind head. Opposite elbow to opposite knee. Extend other leg straight. Move fast but controlled." }
   ]
 };
@@ -42,9 +42,12 @@ const backPainSubs = {
   ]
 };
 
+// Available weights at home
+const AVAILABLE_WEIGHTS = [0, 5, 10, 15, 20, 25, 30, 35];
+
 let round = 1, rounds = 3, appData = {};
-let workoutHistory = []; // Stores all completed workouts
-let workoutTimer = 0; // seconds
+let workoutHistory = [];
+let workoutTimer = 0;
 let timerInterval = null;
 let timerRunning = false;
 let currentWorkoutStart = null;
@@ -96,9 +99,29 @@ function showBackPainToggle(day) {
 }
 
 function parseReps(repsStr) {
-  // Extract first number from reps string like "12-15" or "10/leg"
   const match = repsStr.match(/\d+/);
-  return match ? parseInt(match[0]) : 10; // default 10 if can't parse
+  return match ? parseInt(match[0]) : 10;
+}
+
+function getNextWeight(current, direction) {
+  const currentIndex = AVAILABLE_WEIGHTS.indexOf(current);
+  if (currentIndex === -1) {
+    // If current weight not in list, find closest
+    const closest = AVAILABLE_WEIGHTS.reduce((prev, curr) => 
+      Math.abs(curr - current) < Math.abs(prev - current) ? curr : prev
+    );
+    return closest;
+  }
+
+  if (direction === "increase") {
+    return currentIndex < AVAILABLE_WEIGHTS.length - 1 
+      ? AVAILABLE_WEIGHTS[currentIndex + 1] 
+      : current;
+  } else {
+    return currentIndex > 0 
+      ? AVAILABLE_WEIGHTS[currentIndex - 1] 
+      : current;
+  }
 }
 
 function fillExercises() {
@@ -113,9 +136,25 @@ function fillExercises() {
     const savedEx = appData[day]?.[round]?.[i];
     const checked = savedEx?.checked || false;
     const currentWeight = savedEx?.weight !== undefined ? savedEx.weight : ex.weight;
+    const amrapReps = savedEx?.amrapReps || "";
 
     // Check for PR
     const isPR = checkForPR(day, ex.name, currentWeight);
+
+    // Get previous rounds AMRAP data for display
+    let prevRoundsHTML = '';
+    if (ex.isAMRAP && round > 1) {
+      let prevRounds = [];
+      for (let r = 1; r < round; r++) {
+        const prevData = appData[day]?.[r]?.[i];
+        if (prevData?.amrapReps) {
+          prevRounds.push(`R${r}: ${prevData.amrapReps}`);
+        }
+      }
+      if (prevRounds.length > 0) {
+        prevRoundsHTML = `<div style="font-size:0.9em;color:#b8c7d0;margin-top:4px;">${prevRounds.join(' | ')}</div>`;
+      }
+    }
 
     let card = document.createElement("div");
     card.className = "exercise-card";
@@ -132,6 +171,17 @@ function fillExercises() {
       `;
     }
 
+    let amrapHTML = '';
+    if (ex.isAMRAP) {
+      amrapHTML = `
+        <div class="amrap-tracker">
+          <label style="color:#b8c7d0;font-size:0.95em;">Reps completed:</label>
+          <input type="number" class="amrap-input" id="amrap-${i}" value="${amrapReps}" placeholder="0" min="0">
+        </div>
+        ${prevRoundsHTML}
+      `;
+    }
+
     card.innerHTML = `
       <div class="exercise-main">
         <input type="checkbox" class="checkbox" id="ex${i}" ${checked ? "checked" : ""}>
@@ -141,6 +191,7 @@ function fillExercises() {
         <button class="timer-btn" data-secs="${ex.time}">⏰ ${ex.time}s</button>
       </div>
       ${weightPickerHTML}
+      ${amrapHTML}
       <div class="desc-bar">
         <button class="desc-toggle" data-index="${i}">▶ Show Instructions</button>
         <div class="desc" id="desc${i}" style="display: none;">${ex.desc}</div>
@@ -154,7 +205,8 @@ function fillExercises() {
       appData[day][round][i] = {
         checked: this.checked,
         weight: currentWeight,
-        reps: parseReps(ex.reps)
+        reps: parseReps(ex.reps),
+        amrapReps: ex.isAMRAP ? (document.getElementById(`amrap-${i}`).value || "") : undefined
       };
       save();
       updateProgress();
@@ -166,8 +218,7 @@ function fillExercises() {
         btn.onclick = function() {
           const action = this.dataset.action;
           const idx = this.dataset.index;
-          let newWeight = currentWeight + (action === "increase" ? 5 : -5);
-          if (newWeight < 0) newWeight = 0;
+          let newWeight = getNextWeight(currentWeight, action);
 
           document.getElementById(`weight-${idx}`).textContent = newWeight + " lbs";
 
@@ -179,6 +230,17 @@ function fillExercises() {
           save();
           updateVolume();
         };
+      });
+    }
+
+    if (ex.isAMRAP) {
+      const amrapInput = document.getElementById(`amrap-${i}`);
+      amrapInput.addEventListener("input", function() {
+        if (!appData[day]) appData[day] = {};
+        if (!appData[day][round]) appData[day][round] = {};
+        if (!appData[day][round][i]) appData[day][round][i] = { checked: false, weight: 0, reps: 0 };
+        appData[day][round][i].amrapReps = this.value;
+        save();
       });
     }
 
@@ -201,7 +263,6 @@ function fillExercises() {
 function checkForPR(day, exerciseName, currentWeight) {
   if (currentWeight === 0) return false;
 
-  // Look through workout history for this exercise
   for (let workout of workoutHistory) {
     if (workout.day === day) {
       for (let ex of workout.exercises) {
@@ -251,11 +312,9 @@ function updateVolume() {
 }
 
 function updateStats() {
-  // Calculate streak
   const streak = calculateStreak();
   $streakValue.textContent = streak > 0 ? streak + "🔥" : "0";
 
-  // Calculate workouts this week
   const weekWorkouts = getWorkoutsThisWeek();
   $workoutsValue.textContent = weekWorkouts;
 }
@@ -379,7 +438,6 @@ function finishWorkout() {
 
   stopTimer();
 
-  // Save workout to history
   const day = $sel.value;
   const bp = $backpain.checked && day === "Wednesday";
   const exList = bp ? backPainSubs[day] : defaultData[day];
@@ -410,7 +468,6 @@ function finishWorkout() {
   save();
   updateStats();
 
-  // Celebration!
   showCelebration();
 
   setTimeout(() => {

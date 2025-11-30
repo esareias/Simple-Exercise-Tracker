@@ -3,32 +3,51 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Workout Tracker</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #121212; color: #eee; }
-    .container { max-width: 480px; margin: 20px auto; padding: 12px; background: #222; border-radius: 10px; }
-    h2 { margin: 8px 0; }
-    .day-select { margin-bottom: 8px; }
-    .exercise { padding: 7px 0; border-bottom: 1px solid #444; display: flex; align-items: center; }
-    .checkbox { margin-right: 10px; }
-    .timer-btn { margin-left: auto; background: #444; color: #fff; border: none; border-radius: 6px; padding: 3px 8px; }
-    .active-timer { background: #3680ff; color: #fff; }
-    .desc { font-size: 0.88em; color: #aaa; }
-    .round { margin: 11px 0 6px 0; }
-    #next-round, #reset-btn { margin: 9px 7px 0 0; background: #0a0; color: #fff; border: none; border-radius: 5px; padding: 5px 11px; }
-    #backpain-toggle { margin: 0 0 12px 0; }
+    body { font-family: 'Inter', sans-serif; background: #181a1b; color: #eee; margin: 0; }
+    .container { max-width: 480px; margin: 12px auto 80px auto; padding: 16px 10px 10px 10px; background: #232526; border-radius: 20px; box-shadow: 0 6px 16px #0003; }
+    h2 { margin-top: 0; font-size: 1.5em; font-weight: 700; letter-spacing: 1px; }
+    .settings { margin-bottom: 8px; font-size: 1em; }
+    .day-select { margin-bottom: 16px; }
+    select { font-size: 1.1em; background: #1e2122; color: #eee; border-radius: 7px; border: none; padding: 6px 10px;}
+    .round { margin: 10px 0 4px 0; font-weight: bold; font-size: 1.12em; color: #45d6b6; }
+    #exercises { margin-bottom: 10px; }
+    .exercise-card { background: #202124; margin: 14px 0; padding: 12px 13px; border-radius: 14px; box-shadow: 0 2px 10px #2225; display: flex; flex-direction: column; }
+    .exercise-main { display: flex; align-items: center; }
+    .checkbox { accent-color: #30e682; width: 22px; height: 22px; margin-right: 12px;}
+    .name { font-weight: 600; flex: 1; font-size: 1.15em; }
+    .tag { font-size: 0.98em; color: #bbccee; margin-left: 6px; }
+    .timer-btn { background: #3680ff; color: #fff; border-radius: 8px; border: none; padding: 7px 16px; font-size:1em; margin-left: 8px; box-shadow:0 0 6px #3680ff44;}
+    .timer-btn:active { transform: scale(0.96); box-shadow: 0 0 12px #3680ff88; }
+    .desc-bar { margin-top: 7px; }
+    .desc-toggle { background: none; border: none; color: #45d6b6; font-size: 1.03em; padding: 0 6px 0 0; cursor: pointer; text-align: left;}
+    .desc-toggle:active { text-shadow:0 0 4px #25d3a3; }
+    .desc { color: #b8c7d0; background: #191b1e; border-radius: 8px; margin-top: 7px; padding: 10px 12px; font-size:1em; box-shadow: 0 2px 10px #3332; }
+    .sticky-footer { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; z-index: 500; display: flex; gap:20px; align-items: center; justify-content: center; background: linear-gradient(90deg, #232526 70%, #242c37); box-shadow: 0 -3px 18px #0008;}
+    #next-round, #reset-btn { background: #45d6b6; color: #232526; font-weight: bold; font-size: 1.17em; border: none; border-radius: 11px; padding: 11px 24px; margin: 0 4px; box-shadow:0 0 8px #45d6b688; }
+    #next-round:active, #reset-btn:active { background: #25d3a3; }
+    @media (max-width:540px) {
+      .container { margin:8px auto 66px auto !important; }
+      .sticky-footer { height:61px; font-size:1.04em; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Workout Tracker</h2>
-    <label><input type="checkbox" id="backpain-toggle"> Back Pain Mode</label>
+    <h2>🦾 Workout Tracker</h2>
+    <div class="settings">
+      <label><input type="checkbox" id="backpain-toggle" class="checkbox"> <span style="color:#30e682;font-weight:600">Back Pain Mode</span></label>
+    </div>
     <div class="day-select">
       <select id="day-select"></select>
     </div>
     <div class="round" id="round-info"></div>
     <div id="exercises"></div>
-    <button id="next-round">Next Round</button>
-    <button id="reset-btn">Reset</button>
+  </div>
+  <div class="sticky-footer">
+    <button id="next-round">⏭️ Next Round</button>
+    <button id="reset-btn">🔄 Reset</button>
   </div>
   <audio id="timerAudio">
     <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">

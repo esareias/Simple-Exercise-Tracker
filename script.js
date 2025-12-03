@@ -42,7 +42,6 @@ const backPainSubs = {
   ]
 };
 
-// Available weights at home
 const AVAILABLE_WEIGHTS = [0, 5, 10, 15, 20, 25, 30, 35];
 
 let round = 1, rounds = 3, appData = {};
@@ -51,6 +50,8 @@ let workoutTimer = 0;
 let timerInterval = null;
 let timerRunning = false;
 let currentWorkoutStart = null;
+let transitionTimer = null;
+let transitionActive = false;
 
 const $exs = document.getElementById("exercises"),
       $sel = document.getElementById("day-select"),
@@ -106,7 +107,6 @@ function parseReps(repsStr) {
 function getNextWeight(current, direction) {
   const currentIndex = AVAILABLE_WEIGHTS.indexOf(current);
   if (currentIndex === -1) {
-    // If current weight not in list, find closest
     const closest = AVAILABLE_WEIGHTS.reduce((prev, curr) => 
       Math.abs(curr - current) < Math.abs(prev - current) ? curr : prev
     );
@@ -124,6 +124,89 @@ function getNextWeight(current, direction) {
   }
 }
 
+function showTransitionTimer(seconds, message) {
+  transitionActive = true;
+
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.id = "transition-overlay";
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  const messageEl = document.createElement("div");
+  messageEl.style.cssText = `
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #30ffe1;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 0 20px;
+  `;
+  messageEl.textContent = message;
+
+  const timerEl = document.createElement("div");
+  timerEl.id = "transition-timer";
+  timerEl.style.cssText = `
+    font-size: 6em;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  `;
+  timerEl.textContent = seconds;
+
+  const skipBtn = document.createElement("button");
+  skipBtn.textContent = "Skip Rest";
+  skipBtn.style.cssText = `
+    margin-top: 30px;
+    background: linear-gradient(90deg,#30a7ff 30%,#35f6e4 100%);
+    color: #181a1b;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+  `;
+  skipBtn.onclick = () => {
+    clearInterval(transitionTimer);
+    document.body.removeChild(overlay);
+    transitionActive = false;
+  };
+
+  overlay.appendChild(messageEl);
+  overlay.appendChild(timerEl);
+  overlay.appendChild(skipBtn);
+  document.body.appendChild(overlay);
+
+  let timeLeft = seconds;
+  transitionTimer = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+
+    if (timeLeft <= 3 && timeLeft > 0) {
+      timerAudio.play();
+    }
+
+    if (timeLeft <= 0) {
+      clearInterval(transitionTimer);
+      timerAudio.play();
+      document.body.removeChild(overlay);
+      transitionActive = false;
+    }
+  }, 1000);
+}
+
 function fillExercises() {
   let day = $sel.value;
   showBackPainToggle(day);
@@ -138,10 +221,8 @@ function fillExercises() {
     const currentWeight = savedEx?.weight !== undefined ? savedEx.weight : ex.weight;
     const amrapReps = savedEx?.amrapReps || "";
 
-    // Check for PR
     const isPR = checkForPR(day, ex.name, currentWeight);
 
-    // Get previous rounds AMRAP data for display
     let prevRoundsHTML = '';
     if (ex.isAMRAP && round > 1) {
       let prevRounds = [];
@@ -182,6 +263,8 @@ function fillExercises() {
       `;
     }
 
+    const isLastExercise = i === exList.length - 1;
+
     card.innerHTML = `
       <div class="exercise-main">
         <input type="checkbox" class="checkbox" id="ex${i}" ${checked ? "checked" : ""}>
@@ -203,7 +286,6 @@ function fillExercises() {
       if (!appData[day]) appData[day] = {};
       if (!appData[day][round]) appData[day][round] = {};
 
-      // Get current weight from display or saved data
       const weightDisplay = document.getElementById(`weight-${i}`);
       const displayedWeight = weightDisplay ? parseInt(weightDisplay.textContent) : currentWeight;
 
@@ -216,6 +298,13 @@ function fillExercises() {
       save();
       updateProgress();
       updateVolume();
+
+      // Start 15-second transition timer after checking (except last exercise)
+      if (this.checked && !isLastExercise) {
+        setTimeout(() => {
+          showTransitionTimer(15, "Next Exercise Starting In...");
+        }, 500);
+      }
     });
 
     if (ex.weight > 0) {
@@ -224,17 +313,13 @@ function fillExercises() {
           const action = this.dataset.action;
           const idx = this.dataset.index;
 
-          // READ current weight from the display element
           const displayEl = document.getElementById(`weight-${idx}`);
           const displayedWeight = parseInt(displayEl.textContent);
 
-          // Calculate next weight based on CURRENT displayed weight
           let newWeight = getNextWeight(displayedWeight, action);
 
-          // Update display
           displayEl.textContent = newWeight + " lbs";
 
-          // Save to appData
           if (!appData[day]) appData[day] = {};
           if (!appData[day][round]) appData[day][round] = {};
           if (!appData[day][round][idx]) {
@@ -371,7 +456,14 @@ function getWorkoutsThisWeek() {
 }
 
 function nextRound() {
+  const oldRound = round;
   round = (round % rounds) + 1;
+
+  // Show 90-second rest timer when starting round 2 or 3
+  if (oldRound < rounds) {
+    showTransitionTimer(90, `Round ${round} Starting In...`);
+  }
+
   fillExercises();
   save();
 }
